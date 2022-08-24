@@ -1,8 +1,0 @@
-.list li {
-  width: 100%;
-  list-style-type: none;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
-  border-radius: 15px;
-  margin-bottom: 10px;
-  padding: 5px;
-}
