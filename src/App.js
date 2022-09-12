@@ -1,10 +1,9 @@
-import SimpleInput from "./components/SimpleInput";
-import BasicForm from "./components/BasicForm";
+import Counter from './components/Counter';
+
+
 function App() {
   return (
-    <div className="app">
-      <BasicForm />
-    </div>
+    <Counter />
   );
 }
 
