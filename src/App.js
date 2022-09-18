@@ -1,29 +1,30 @@
-import { Route, Switch, Redirect } from "react-router-dom"; //🔴
+import { Route, Routes, Navigate } from "react-router-dom";
+
 import Welcome from "./pages/Welcome";
 import Products from "./pages/Products";
 import ProductDetail from "./pages/ProductDetail";
 import MainHeader from "./components/MainHeader";
+
 function App() {
   return (
     <div>
       <MainHeader />
       <main>
-        <Switch>
-          {/* dùng Redirect để điều khiển browser truy cập mặc định khi không có path */}
-          {/* vd: ourdomain.com/ => ourdomain.com/welcome */}
-          <Route path="/" exact>
-            <Redirect to="/welcome" />
+        {/* v6 không dùng switch => Routes 🔴*/}
+        <Routes>
+          {/* v6 không dùng Redirect => Navigate 🔴 */}
+          <Route path="/" element={<Navigate to="/welcome" />} />
+          {/* v6 không dùng child component => dùng element prop 🔴*/}
+          {/* v6 không dùng exact 🔴 */}
+          {/* nested route cần /* để những route bên trong match */}
+          <Route path="/welcome/*" element={<Welcome />}>
+            {/* không cần /welcome trong path, rút ngắn hơn v5 */}
+            <Route path="new-user" element={<p>Welcome,new user!</p>} />
           </Route>
-          <Route path="/welcome">
-            <Welcome />
-          </Route>
-          <Route path="/products" exact>
-            <Products />
-          </Route>
-          <Route path="/products/:productId">
-            <ProductDetail />
-          </Route>
-        </Switch>
+          <Route path="/products" element={<Products />} />
+          {/* v6 có thể tìm được path thích hợp nhất , v5 nếu define dynamic path trước thì sẽ chọn nó làm match patch 🔴*/}
+          <Route path="/products/:productId" element={<ProductDetail />} />
+        </Routes>
       </main>
     </div>
   );
@@ -31,9 +32,6 @@ function App() {
 
 export default App;
 
-//ourdomain.com/welcome => Welcome Component
-//ourdomain.com/products => Products Component
-//ourdomain.com/product-detail/a-book
-// component children bên trong Route chỉ display khi truy cập path
-
-// exact => tell the browser leave this match until it found the exact match
+// our-domain.com/welcome => Welcome Component
+// our-domain.com/products => Products Component
+// our-domain.com/product-detail/a-book
